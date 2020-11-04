@@ -1,7 +1,7 @@
 
 import discord
 import os
-import replit, time
+import time
 
 
 start_time = time.time()
@@ -46,7 +46,7 @@ async def command_prefix(bot, message):
 
 @bot.event
 async def on_ready():
-    replit.clear()
+  
     print(
         f"-----\nLogged in as: {bot.user.name} : {bot.user.id}\n-----\nMy current prefix is: sp!\n-----"
     )
