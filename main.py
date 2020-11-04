@@ -1,7 +1,7 @@
-import jishaku
+
 import discord
 import os
-import replit, time, requests
+import replit, time
 
 
 start_time = time.time()
@@ -22,14 +22,6 @@ def get_prefix(client, message):
 
 
 bot =  commands.Bot(                                         
-   
-    command_prefix=get_prefix, prefix=os.getenv('prefix'),
-	  pm_help=True,
-    description='bruh',          
-    owner_id=700609775838298113,  command_attrs=dict(hidden=True),      
-     case_intents=True
-		)
-client =  commands.Bot(                                         
    
     command_prefix=get_prefix, prefix=os.getenv('prefix'),
 	  pm_help=True,
