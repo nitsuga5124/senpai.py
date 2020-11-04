@@ -1,6 +1,6 @@
 from discord.ext import commands
-import discord, random, datetime, time
-from main import bot
+import discord, random
+
 
 
 
@@ -94,34 +94,6 @@ class Fun(commands.Cog):
             content=None
         )
 		
-
-bot.snipes = {}
-
-@commands.Cog.listener()
-async def on_message_delete(message):
-  bot.snipes[message.channel.id] = message
-
-
-
-
-@bot.command()  
-async def snipe(ctx, *, channel: discord.TextChannel = None):
-  channel = channel or ctx.channel
-  try:
-    msg = bot.snipes[channel.id]
-  except KeyError:
-    return await ctx.send('Nothing to snipe!')
-  # one liner, dont complain
-  await ctx.send(embed=discord.Embed(description=msg.content, color=msg.author.color).set_author(name=str(msg.author), icon_url=str(msg.author.avatar_url)))
-				
-
-
-			
-        
-
-	
-
-
 
 
 
