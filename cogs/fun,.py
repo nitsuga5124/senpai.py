@@ -92,7 +92,9 @@ class Fun(commands.Cog):
 			description = 'You Must Input Either `heads` or `tails`',
 			)
 			await ctx.send(embed=embed)
-
+			return
+   
+	
 	@commands.command()
 	@commands.guild_only()
 	async def roll(self, ctx, arg):
@@ -113,6 +115,10 @@ class Fun(commands.Cog):
 			description = f'🎲 You Rolled A **{number}**',
 			)
 			await ctx.send(embed=embed)
+			return
+
+
+	
 
 
 def setup(client):

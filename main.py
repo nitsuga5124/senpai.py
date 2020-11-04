@@ -1,7 +1,7 @@
 import jishaku
 import discord
 import os
-import replit, time
+import replit, time, requests
 
 
 start_time = time.time()
@@ -14,20 +14,30 @@ def get_prefix(client, message):
     prefixes = ['sp!', 'SP!', 'Sp!', 'sP!']   
 
     if not message.guild:
-        prefixes = ['']   
+        prefixes = ['sp!']   
 
    
+
     return commands.when_mentioned_or(*prefixes)(client, message)
 
 
 bot =  commands.Bot(                                         
    
-    command_prefix=get_prefix,             
+    command_prefix=get_prefix, prefix=os.getenv('prefix'),
 	  pm_help=True,
     description='bruh',          
-    owner_id=700609775838298113,            
-    case_insensitive=True                  
-)
+    owner_id=700609775838298113,  command_attrs=dict(hidden=True),      
+     case_intents=True
+		)
+client =  commands.Bot(                                         
+   
+    command_prefix=get_prefix, prefix=os.getenv('prefix'),
+	  pm_help=True,
+    description='bruh',          
+    owner_id=700609775838298113,  command_attrs=dict(hidden=True),      
+     case_intents=True
+		)
+
 
 
 
@@ -52,7 +62,8 @@ async def on_ready():
     await bot.change_presence(activity=activity)
 
     
-	
+
+
 	
 
 
@@ -80,8 +91,6 @@ bot.colors = {
 }
 bot.color_list = [c for c in bot.colors.values()]
 
-   
-
 os.environ["JISHAKU_NO_DM_TRACEBACK"] = "true"
 os.environ["JISHAKU_NO_UNDERSCORE"] = "true"
 
@@ -104,6 +113,5 @@ for extension in os.listdir('./cogs/'):
 
 keep_alive()
 bot.run(os.environ.get('TOKEN'), bot=True, reconnect=True)
-
 
 

@@ -1,13 +1,19 @@
 import discord
 from discord.ext import commands 
-import aiohttp
-  
+import aiohttp, asyncio
 from random import choice, randint
+
+
 
 class Images(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+
+
+   
+	
+ 
 
    
     @commands.command(
@@ -16,13 +22,16 @@ class Images(commands.Cog):
     )
     async def cat(self, ctx):
         async with ctx.channel.typing():
+				
             async with aiohttp.ClientSession() as cs:
                 async with cs.get("https://meme-api.herokuapp.com/gimme") as r:
                     data = await r.json()
-
+							      
                     embed = discord.Embed(title="Meme", color=0x00FFFF)
                     embed.set_image(url=data['url'])
                     
+      
+									
                     await ctx.send(embed=embed)
 										
 

@@ -10,9 +10,10 @@ class apis(commands.Cog):
   
 						 
     @commands.command(
-			name='ss'
+			name='ss',
+			description='bruh'
 		)
-    async def ss(self, ctx, *, url: str, description='Get a screen shot of the web'):
+    async def ss_ommand(self, ctx, *, url: str):
      async with ctx.typing(), aiohttp.ClientSession() as session:
          screener = "http://magmachain.herokuapp.com/api/v1"
          async with session.post(screener, headers=dict(website=url)) as r:
@@ -20,6 +21,7 @@ class apis(commands.Cog):
              e = discord.Embed(title='Not a webpeek',color=0x00FFFF)
      e.set_image(url=website)
      await ctx.send(embed=e)
+
 	
 				
 def setup(bot):
