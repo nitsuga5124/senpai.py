@@ -1,7 +1,7 @@
 
 import discord
 import os
-import replit, time
+import time
 
 
 start_time = time.time()
@@ -61,7 +61,7 @@ async def snipe(ctx, *, channel: discord.TextChannel = None):
     await ctx.send(embed=discord.Embed(description=msg.content, color=0xffff00).set_author(name=str(msg.author), icon_url=str(msg.author.avatar_url)))
 @bot.event
 async def on_ready():
-    replit.clear()
+  
     print(
         f"-----\nLogged in as: {bot.user.name} : {bot.user.id}\n-----\nMy current prefix is: sp!\n-----"
     )
