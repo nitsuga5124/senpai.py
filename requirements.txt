@@ -6,7 +6,7 @@ jishaku == "^1.19.1"
 cleverbotfree == "^1.2.4"
 async == "^0.6.2"
 aiosqlite == "^0.15.0"
-flask = "^1.1.2"
+flask
 pendulum == "^2.1.2"
 pyfiglet == "^0.8.post1"
 PyNaCl == "^1.4.0"
