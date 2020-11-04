@@ -1,4 +1,4 @@
-replit = "^2.0.0"
+
 discord = "^1.0.1"
 python = "^3.8"
 jishaku = "^1.19.1"
