@@ -1,8 +1,20 @@
 
-discord 
-jishaku 
-cleverbotfree 
-async
+aiohttp==3.6.2
+async-cse==0.3.0
+async-timeout==3.0.1
+asyncpg==0.21.0
+attrs==20.2.0
+beautifulsoup4==4.5.3
+chardet==3.0.4
+discord.py==1.5.1
+idna==2.10
+multidict==4.7.6
+pymongo==3.11.0
+requests==2.12.4
+strawpy==1.1
+yarl==1.6.0
+jishaku==1.19.0.194
+async-timeout==3.0.1  
 aiosqlite
 flask
 pendulum 
