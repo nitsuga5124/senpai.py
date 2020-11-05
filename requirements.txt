@@ -28,5 +28,7 @@ ffmpeg
 psutil
 lavalink
 utils
+opus
+libopus
 wavelink 
 praw 
