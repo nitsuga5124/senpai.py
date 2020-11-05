@@ -20,7 +20,6 @@ flask
 pendulum 
 pyfiglet 
 PyNaCl
-aiohttp
 async-cleverbot
 replit
 timeago
