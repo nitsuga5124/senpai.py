@@ -1,1 +1,1 @@
-worker: python senpai.py
+worker: python3 senpai.py
