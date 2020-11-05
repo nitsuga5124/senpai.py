@@ -5,7 +5,7 @@ from discord.ext import commands
 import discord
 import aiohttp
 import random
-from main import bot
+from senpai import bot
 
 
 class Fun(commands.Cog):
