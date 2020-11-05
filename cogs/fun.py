@@ -62,8 +62,7 @@ class Fun(commands.Cog):
       
         await ctx.send(content='What would you like the Description to be?')
         msg = await self.bot.wait_for('message', check=check)
-        desc = msg.content
-
+        
         await ctx.send(content='What would you like the color to be? Ex: 0x00FFFF')
         msg = await self.bot.wait_for('message', check=check)
         color = msg.content
