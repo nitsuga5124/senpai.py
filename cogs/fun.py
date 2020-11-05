@@ -48,7 +48,7 @@ class Fun(commands.Cog):
         description='Make a fun embed',
     )
     async def embed_command(self, ctx):
-          
+
          def check(ms):
           
             return ms.channel == ctx.message.channel and ms.author == ctx.message.author
@@ -59,13 +59,12 @@ class Fun(commands.Cog):
        
         msg = await self.bot.wait_for('message', check=check)
         title = msg.content
-      
+        # Set the title
+
+ 
         await ctx.send(content='What would you like the Description to be?')
         msg = await self.bot.wait_for('message', check=check)
-        
-        await ctx.send(content='What would you like the color to be? Ex: 0x00FFFF')
-        msg = await self.bot.wait_for('message', check=check)
-        color = msg.content
+        desc = msg.content
 
      
         msg = await ctx.send(content='Now generating the embed...')
@@ -76,12 +75,12 @@ class Fun(commands.Cog):
         embed = discord.Embed(
             title=title,
             description=desc,
-            color=random.choice(color_list) or color
+            color=random.choice(color_list)
         )
-        # Also set the thumbnail to be the bot's pfp
+        
         embed.set_thumbnail(url=self.bot.user.avatar_url)
 
-        # Also set the embed author to the command user
+       
         embed.set_author(
             name=ctx.message.author.name,
             icon_url=ctx.message.author.avatar_url
