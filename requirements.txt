@@ -7,12 +7,12 @@ aiosqlite
 flask
 pendulum 
 pyfiglet 
-PyNaCl=="^1.4.0"
-aiohttp=="^3.6.2"
+PyNaCl
+aiohttp
 async-cleverbot
 replit
-timeago=="^1.0.14"
-youtube_dl=="^2020.9.20"
+timeago
+youtube_dl
 ffmpeg=="^1.4"
 psutil
 lavalink
