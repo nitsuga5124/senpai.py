@@ -13,7 +13,7 @@ async-cleverbot
 replit
 timeago
 youtube_dl
-ffmpeg=="^1.4"
+ffmpeg
 psutil
 lavalink
 utils
