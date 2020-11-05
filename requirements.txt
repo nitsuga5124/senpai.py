@@ -1,5 +1,4 @@
 discord
-python
 jishaku 
 cleverbotfree == 1.2.4
 async 
