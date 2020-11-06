@@ -1,4 +1,4 @@
-from config import config
+from config1 import config
 
 # A dictionary that remembers which guild belongs to which audiocontroller
 guild_to_audiocontroller = {}

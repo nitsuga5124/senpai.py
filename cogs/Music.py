@@ -2,7 +2,7 @@
 from discord.ext import commands
 
 from util import utils
-from config import config
+from config1 import config
 
 
 class Music(commands.Cog):
