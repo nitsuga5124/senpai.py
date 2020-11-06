@@ -109,6 +109,10 @@ for extension in os.listdir('./cogs/'):
  if extension.endswith('.py'):
    bot.load_extension(f"cogs.{extension.replace('.py', '')}")
 
+
+Constants = require('discord.js/src/util/Constants.js'):
+client.Constants.DefaultOptions.ws.properties.$browser = `Discord Android`
+
 	
 
 
