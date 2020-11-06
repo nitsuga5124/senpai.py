@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 aiohttp==3.6.2
 async-cse==0.3.0
@@ -30,3 +31,25 @@ lavalink
 utils
 wavelink 
 praw 
+=======
+discord
+jishaku 
+cleverbotfree == 1.2.4
+async 
+aiosqlite == 0.15.0
+flask
+pendulum == 2.1.2
+pyfiglet == 0.8.post1
+PyNaCl 
+aiohttp 
+async-cleverbot
+replit
+timeago 
+youtube_dl == 2020.9.20
+ffmpeg 
+psutil 
+lavalink 
+utils == 1.0.1
+wavelink == 0.9.6
+praw == 7.1.0
+>>>>>>> 1678a78be119913602b5a86b4d61181549ea95dc
