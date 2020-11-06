@@ -14,7 +14,6 @@ requests==2.12.4
 strawpy==1.1
 yarl==1.6.0
 jishaku
-discord
 async-timeout==3.0.1  
 aiosqlite
 flask

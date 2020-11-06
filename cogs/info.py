@@ -42,6 +42,7 @@ class Information(commands.Cog):
         embed.add_field(name="Servers", value=f"{len(ctx.bot.guilds)} ( avg: {avgmembers} users/server )", inline=True)
         embed.add_field(name="Commands loaded", value=len([x.name for x in self.bot.commands]), inline=True)
         embed.add_field(name="RAM", value=f"{ramUsage:.2f} MB", inline=True)
+        embed.add_field(name="Changelogs",value="lots of updates been done!", inline=True)
 
         await ctx.send(content=f"ℹ About **{ctx.bot.user}** | **{os.getenv('version')}**", embed=embed)
 
