@@ -43,7 +43,7 @@ class Information(commands.Cog):
         embed.add_field(name="Commands loaded", value=len([x.name for x in self.bot.commands]), inline=True)
         embed.add_field(name="RAM", value=f"{ramUsage:.2f} MB", inline=True)
         embed.add_field(name="Changelogs",value="lots of updates been done!", inline=True)
-
+        embed.add_field(name="Up coming Changelog",value="(11/6) later today", inline=True)
         await ctx.send(content=f"ℹ About **{ctx.bot.user}** | **{os.getenv('version')}**", embed=embed)
 
 				
