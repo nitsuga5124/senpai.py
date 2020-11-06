@@ -21,7 +21,7 @@ pendulum
 pyfiglet 
 PyNaCl
 async-cleverbot
-
+asyncio
 timeago
 youtube_dl
 ffmpeg
