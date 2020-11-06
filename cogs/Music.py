@@ -1,7 +1,7 @@
 
 from discord.ext import commands
 
-from musicbot import utils
+from util import utils
 from config import config
 
 
