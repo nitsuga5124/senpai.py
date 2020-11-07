@@ -29,4 +29,8 @@ psutil
 lavalink
 utils
 wavelink 
-praw 
+praw
+time
+importlib
+os
+sys
