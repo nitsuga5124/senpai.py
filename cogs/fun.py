@@ -96,7 +96,7 @@ class Fun(commands.Cog):
         return
 
         @commands.command(aliases=['8bvall'])
-        @commands.guild_only()
+    
     	async def _8ball(self, ctx, *, question):
     		responses = ['It Is Certain.',
     					 'It Is Decidedly So.',
