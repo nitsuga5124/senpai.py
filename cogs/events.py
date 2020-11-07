@@ -1,78 +1,91 @@
-import logging, datetime, os
 
 import discord
+import psutil
+import os
+
+from datetime import datetime
 from discord.ext import commands
+from discord.ext.commands import errors
+from utils import default
 
 
-logger = logging.getLogger(__name__)
-
-
-class ErrorHandler(commands.Cog):
-    """
-    An error handling cog.
-    """
+class Events(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-			
+        self.config = default.get("config.json")
+        self.process = psutil.Process(os.getpid())
 
     @commands.Cog.listener()
-    async def on_command_error(self, ctx, error):
-        """Task when an error occurs."""
+    async def on_command_error(self, ctx, err):
+        if isinstance(err, errors.MissingRequiredArgument) or isinstance(err, errors.BadArgument):
+            helper = str(ctx.invoked_subcommand) if ctx.invoked_subcommand else str(ctx.command)
+            await ctx.send_help(helper)
 
-        if isinstance(error, commands.CommandNotFound):
-            return logger.info(f"{ctx.author} used {ctx.message.content} "
-                               f"but nothing was found.")
+        elif isinstance(err, errors.CommandInvokeError):
+            error = default.traceback_maker(err.original)
 
-        if isinstance(error, commands.MissingRequiredArgument):
-            logger.info(f"{ctx.author} called {ctx.message.content} and "
-                        f"triggered MissingRequiredArgument error.")
-            return await ctx.send(f"`{error.param}` is a required argument.")
+            if "2000 or fewer" in str(err) and len(ctx.message.clean_content) > 1900:
+                return await ctx.send(
+                    "The commands world is pass the max of world limit"
+                )
 
-        if isinstance(error, commands.CheckFailure):
-            logger.info(f"{ctx.author} called {ctx.message.content} and triggered"
-                        f" CheckFailure error.")
-            return await ctx.send("You do not have permission to use this command!")
+            await ctx.send(f"There was an error processing the command ;-;\n{error}")
 
-        if isinstance(error, (commands.UserInputError, commands.BadArgument)):
-            logger.info(f"{ctx.author} called {ctx.message.content} and triggered"
-                        f" UserInputError error.")
-            return await ctx.send("Invalid arguments.")
+        elif isinstance(err, errors.CheckFailure):
+            pass
 
-        if isinstance(error, commands.CommandOnCooldown):
-            logger.info(f"{ctx.author} called {ctx.message.content} and"
-                        f" triggered ComamndOnCooldown error.")
-            return await ctx.send(f"Command is on cooldown!"
-                                  f" Please retry after `{error.retry_after:.2f}`")
+        elif isinstance(err, errors.MaxConcurrencyReached):
+            await ctx.send("You've reached max capacity of command usage at once, please finish the previous one...")
 
-        if isinstance(error, commands.BotMissingPermissions):
-            logger.info(f"{ctx.author} called {ctx.message.content} and triggered"
-                        f" BotMissing Permissions error.")
-            embed = discord.Embed()
-            embed.colour = discord.Colour.blue()
-            title = "The bot lacks the following permissions to execute the command:"
-            embed.title = title
-            embed.description = ""
-            for perm in error.missing_perms:
-                embed.description += str(perm)
-            return await ctx.send(embed=embed)
+        elif isinstance(err, errors.CommandOnCooldown):
+            await ctx.send(f"This command is on cooldown... try again in {err.retry_after:.2f} seconds.")
 
-        if isinstance(error, commands.DisabledCommand):
-            logger.info(f"{ctx.author} called {ctx.message.content} and"
-                        f" triggered DisabledCommand error.")
-            return await ctx.send("The command has been disabled!")
+        elif isinstance(err, errors.CommandNotFound):
+            pass
 
-        logger.warning(f"{ctx.author} called {ctx.message.content} and"
-                       f" triggered the following error:\n {error}")
+    @commands.Cog.listener()
+    async def on_guild_join(self, guild):
+        if not self.config.join_message:
+            return
 
-				
+        try:
+            to_send = sorted([chan for chan in guild.channels if chan.permissions_for(guild.me).send_messages and isinstance(chan, discord.TextChannel)], key=lambda x: x.position)[0]
+        except IndexError:
+            pass
+        else:
+            await to_send.send(self.config.join_message)
+
+    @commands.Cog.listener()
+    async def on_command(self, ctx):
+        try:
+            print(f"{ctx.guild.name} > {ctx.author} > {ctx.message.clean_content}")
+        except AttributeError:
+            print(f"Private message > {ctx.author} > {ctx.message.clean_content}")
+
     @commands.Cog.listener()
     async def on_ready(self):
-            print(f'Ready: {self.bot.user} | Servers: {len(self.bot.guilds)}')
+        """ The function that activates when boot was completed """
+        if not hasattr(self.bot, 'uptime'):
+            self.bot.uptime = datetime.utcnow()
+
+        # Check if user desires to have something other than online
+        status = self.config.status_type.lower()
+        status_type = {"idle": discord.Status.idle, "dnd": discord.Status.dnd}
+
+        # Check if user desires to have a different type of activity
+        activity = self.config.activity_type.lower()
+        activity_type = {"listening": 2, "watching": 3, "competing": 5}
+
+        await self.bot.change_presence(
+            activity=discord.Game(
+                type=activity_type.get(activity, 0), name=self.config.activity
+            ),
+            status=status_type.get(status, discord.Status.online)
+        )
+
+        # Indicate that the bot has successfully booted up
+        print(f'Ready: {self.bot.user} | Servers: {len(self.bot.guilds)}')
 
 
 def setup(bot):
-    """
-    Our function called to add the cog to our bot.
-    """
-    bot.add_cog(ErrorHandler(bot))
-    logger.info("ErrorHandler cog loaded")
+    bot.add_cog(Events(bot))

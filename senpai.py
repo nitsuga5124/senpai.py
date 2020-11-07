@@ -1,4 +1,4 @@
-
+from config as config
 
 import discord
 import os
@@ -12,22 +12,22 @@ from keep_alive import keep_alive
 
 def get_prefix(client, message):
 
-    prefixes = ['sp!', 'SP!', 'Sp!', 'sP!']   
+    prefixes = ['sp!', 'SP!', 'Sp!', 'sP!']
 
     if not message.guild:
-        prefixes = ['sp!']   
+        prefixes = ['sp!']
 
-   
+
 
     return commands.when_mentioned_or(*prefixes)(client, message)
 
 
-bot =  commands.Bot(                                         
-   
+bot =  commands.Bot(
+
     command_prefix=get_prefix, prefix=os.getenv('prefix'),
 	  pm_help=True,
-    description='bruh',          
-    owner_id=700609775838298113,  command_attrs=dict(hidden=True),      
+    description='bruh',
+    owner_id=700609775838298113,  command_attrs=dict(hidden=True),
      case_intents=True
 		)
 
@@ -41,7 +41,7 @@ async def command_prefix(bot, message):
  if message.author.id == 700609775838298113:
   return ''
  else:
-  return 'sp!' 
+  return 'sp!'
 
 
 bot.snipes = {}
@@ -62,17 +62,16 @@ async def snipe(ctx, *, channel: discord.TextChannel = None):
     await ctx.send(embed=discord.Embed(description=msg.content, color=0xffff00).set_author(name=str(msg.author), icon_url=str(msg.author.avatar_url)))
 @bot.event
 async def on_ready():
-  
+
     print(
         f"-----\nLogged in as: {bot.user.name} : {bot.user.id}\n-----\nMy current prefix is: sp!\n-----"
     )
-    activity = discord.Activity(name='Anime', type=discord.ActivityType.watching)
-    await bot.change_presence(activity=activity)
-
-    
+    await bot.change_presence(activity=config.activity)
 
 
-	
+
+
+
 
 
 bot.colors = {
@@ -108,19 +107,17 @@ bot.load_extension('jishaku')
 for extension in os.listdir('./cogs/'):
  if extension.endswith('.py'):
    bot.load_extension(f"cogs.{extension.replace('.py', '')}")
-   
-
-	
 
 
 
 
 
 
-	
-			
+
+
+
+
+
 
 keep_alive()
 bot.run(os.environ.get('TOKEN'), bot=True, reconnect=True)
-
-
