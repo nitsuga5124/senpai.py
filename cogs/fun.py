@@ -41,7 +41,7 @@ class Fun(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-				
+
 
     @commands.command(
         name='embed',
@@ -93,14 +93,47 @@ class Fun(commands.Cog):
             embed=embed,
             content=None
         )
-		
+        return
+
+        @commands.command(aliases=['8bvall'])
+    	@commands.guild_only()
+    	async def _8ball(self, ctx, *, question):
+    		responses = ['It Is Certain.',
+    					 'It Is Decidedly So.',
+    					 'Without A Doubt.',
+    					 'Yes – Definitely.',
+    					 'You May Rely On It.',
+    					 'As I See It, Yes.',
+    					 'Most Likely.',
+    					 'Outlook Good.',
+    					 'Yes.',
+    					 'Signs Point To Yes.',
+    					 'Reply Hazy, Try Again.',
+    					 'Ask Again Later.',
+    					 'Better Not Tell You Now.',
+    					 'Cannot Predict Now.',
+    					 'Concentrate And Ask Again.',
+    					 'Dont Count On It.',
+    					 'My Reply Is No.',
+    					 'My Sources Say No.',
+    					 'Outlook Not So Good.',
+    					 'Very Doubtful.',
+    					 'You have answered your own quesiton.',]
+
+    		embed = discord.Embed(
+    		colour = 0x00ffff,
+    		title = 'You Have **Challenged** The 8Ball',
+    		description = f'**Qeustion**\n{question}\n**Answer**\n{random.choice(responses)}',
+    		)
+    		await ctx.send(embed=embed)
 
 
 
 
 
 
-	
+
+
 
 
 
