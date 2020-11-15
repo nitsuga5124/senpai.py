@@ -8,7 +8,7 @@ class CleverbotCog(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        self.cleverbot = ac.Cleverbot('lP/8s31p<L5S;+OrjL@W8s31p<L5S;+OrjL@Wy')
+        self.cleverbot = ac.Cleverbot("lP/8s31p<L5S;+OrjL@W8s31p<L5S;+OrjL@Wy")
         self.cleverbot.set_context(ac.DictContext(self.cleverbot))
 
     @commands.command(name="cleverbot", aliases=["cb"])
@@ -19,9 +19,7 @@ class CleverbotCog(commands.Cog):
         try:
             r = await self.cleverbot.ask(query, ctx.author.id)
         except ac.InvalidKey:
-            return await ctx.send(
-                "An error has occurred."
-            )
+            return await ctx.send("An error has occurred.")
         except ac.APIDown:
             return await ctx.send("I have to sleep sometimes. Please ask me later!")
         else:

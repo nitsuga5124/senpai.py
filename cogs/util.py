@@ -1,4 +1,3 @@
-
 def format_seconds(time_seconds):
     """Formats some number of seconds into a string of format d days, x hours, y minutes, z seconds"""
     seconds = time_seconds
@@ -18,6 +17,7 @@ def format_seconds(time_seconds):
 
     return f"{days}d {hours}h {minutes}m {seconds}s"
 
+
 def setup(bot):
 
-	pass
+    pass

@@ -1,4 +1,3 @@
-
 import discord
 import psutil
 import os
@@ -17,8 +16,14 @@ class Events(commands.Cog):
 
     @commands.Cog.listener()
     async def on_command_error(self, ctx, err):
-        if isinstance(err, errors.MissingRequiredArgument) or isinstance(err, errors.BadArgument):
-            helper = str(ctx.invoked_subcommand) if ctx.invoked_subcommand else str(ctx.command)
+        if isinstance(err, errors.MissingRequiredArgument) or isinstance(
+            err, errors.BadArgument
+        ):
+            helper = (
+                str(ctx.invoked_subcommand)
+                if ctx.invoked_subcommand
+                else str(ctx.command)
+            )
             await ctx.send_help(helper)
 
         elif isinstance(err, errors.CommandInvokeError):
@@ -35,10 +40,14 @@ class Events(commands.Cog):
             pass
 
         elif isinstance(err, errors.MaxConcurrencyReached):
-            await ctx.send("You've reached max capacity of command usage at once, please finish the previous one...")
+            await ctx.send(
+                "You've reached max capacity of command usage at once, please finish the previous one..."
+            )
 
         elif isinstance(err, errors.CommandOnCooldown):
-            await ctx.send(f"This command is on cooldown... try again in {err.retry_after:.2f} seconds.")
+            await ctx.send(
+                f"This command is on cooldown... try again in {err.retry_after:.2f} seconds."
+            )
 
         elif isinstance(err, errors.CommandNotFound):
             pass
@@ -49,7 +58,15 @@ class Events(commands.Cog):
             return
 
         try:
-            to_send = sorted([chan for chan in guild.channels if chan.permissions_for(guild.me).send_messages and isinstance(chan, discord.TextChannel)], key=lambda x: x.position)[0]
+            to_send = sorted(
+                [
+                    chan
+                    for chan in guild.channels
+                    if chan.permissions_for(guild.me).send_messages
+                    and isinstance(chan, discord.TextChannel)
+                ],
+                key=lambda x: x.position,
+            )[0]
         except IndexError:
             pass
         else:
@@ -65,7 +82,7 @@ class Events(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         """ The function that activates when boot was completed """
-        if not hasattr(self.bot, 'uptime'):
+        if not hasattr(self.bot, "uptime"):
             self.bot.uptime = datetime.utcnow()
 
         # Check if user desires to have something other than online
@@ -80,11 +97,11 @@ class Events(commands.Cog):
             activity=discord.Game(
                 type=activity_type.get(activity, 0), name=self.config.activity
             ),
-            status=status_type.get(status, discord.Status.online)
+            status=status_type.get(status, discord.Status.online),
         )
 
         # Indicate that the bot has successfully booted up
-        print(f'Ready: {self.bot.user} | Servers: {len(self.bot.guilds)}')
+        print(f"Ready: {self.bot.user} | Servers: {len(self.bot.guilds)}")
 
 
 def setup(bot):

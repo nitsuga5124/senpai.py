@@ -1,5 +1,3 @@
-from config as config
-
 import discord
 import os
 import time
@@ -12,45 +10,40 @@ from keep_alive import keep_alive
 
 def get_prefix(client, message):
 
-    prefixes = ['sp!', 'SP!', 'Sp!', 'sP!']
+    prefixes = ["sp!", "SP!", "Sp!", "sP!"]
 
     if not message.guild:
-        prefixes = ['sp!']
-
-
+        prefixes = ["sp!"]
 
     return commands.when_mentioned_or(*prefixes)(client, message)
 
 
-bot =  commands.Bot(
-
-    command_prefix=get_prefix, prefix=os.getenv('prefix'),
-	  pm_help=True,
-    description='bruh',
-    owner_id=700609775838298113,  command_attrs=dict(hidden=True),
-     case_intents=True
-		)
-
-
-
-
+bot = commands.Bot(
+    command_prefix=get_prefix,
+    prefix=os.getenv("prefix"),
+    pm_help=True,
+    description="bruh",
+    owner_id=700609775838298113,
+    command_attrs=dict(hidden=True),
+    case_intents=True,
+)
 
 
 @bot.event
 async def command_prefix(bot, message):
- if message.author.id == 700609775838298113:
-  return ''
- else:
-  return 'sp!'
+    if message.author.id == 700609775838298113:
+        return ""
+    else:
+        return "sp!"
 
 
 bot.snipes = {}
 
 
-
 @bot.event
 async def on_message_delete(message):
     bot.snipes[message.channel.id] = message
+
 
 @bot.command()
 async def snipe(ctx, *, channel: discord.TextChannel = None):
@@ -59,19 +52,20 @@ async def snipe(ctx, *, channel: discord.TextChannel = None):
         msg = bot.snipes[channel.id]
     except KeyError:
         return await ctx.send("There is nothing to snipe!")
-    await ctx.send(embed=discord.Embed(description=msg.content, color=0xffff00).set_author(name=str(msg.author), icon_url=str(msg.author.avatar_url)))
+    await ctx.send(
+        embed=discord.Embed(description=msg.content, color=0xFFFF00).set_author(
+            name=str(msg.author), icon_url=str(msg.author.avatar_url)
+        )
+    )
+
+
 @bot.event
 async def on_ready():
 
     print(
         f"-----\nLogged in as: {bot.user.name} : {bot.user.id}\n-----\nMy current prefix is: sp!\n-----"
     )
-    await bot.change_presence(activity=config.activity)
-
-
-
-
-
+    await bot.change_presence(activity="kek")
 
 
 bot.colors = {
@@ -94,7 +88,7 @@ bot.colors = {
     "DARK_ORANGE": 0xA84300,
     "DARK_RED": 0x992D22,
     "DARK_NAVY": 0x2C3E50,
-		"CYAN": 0x00FFF,
+    "CYAN": 0x00FFF,
 }
 bot.color_list = [c for c in bot.colors.values()]
 
@@ -102,22 +96,12 @@ os.environ["JISHAKU_NO_DM_TRACEBACK"] = "true"
 os.environ["JISHAKU_NO_UNDERSCORE"] = "true"
 
 
-bot.load_extension('jishaku')
+bot.load_extension("jishaku")
 
-for extension in os.listdir('./cogs/'):
- if extension.endswith('.py'):
-   bot.load_extension(f"cogs.{extension.replace('.py', '')}")
-
-
-
-
-
-
-
-
-
-
+for extension in os.listdir("./cogs/"):
+    if extension.endswith(".py"):
+        bot.load_extension(f"cogs.{extension.replace('.py', '')}")
 
 
 keep_alive()
-bot.run(os.environ.get('TOKEN'), bot=True, reconnect=True)
+bot.run(os.environ.get("TOKEN"), bot=True, reconnect=True)

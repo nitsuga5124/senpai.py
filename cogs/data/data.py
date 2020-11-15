@@ -1,11 +1,7 @@
-
-  
 import discord
 
 from cogs import permissions, default
 from discord.ext.commands import AutoShardedBot, DefaultHelpCommand
-
-
 
 
 class Bot(AutoShardedBot):
