@@ -9,7 +9,7 @@ discord.py @ git+https://github.com/Tariq02-dev/discord.py.git
 idna==2.10
 multidict==4.7.6
 pymongo==3.11.0
-requests==2.12.4
+requests==2.20.0
 strawpy==1.1
 yarl==1.6.0
 jishaku
