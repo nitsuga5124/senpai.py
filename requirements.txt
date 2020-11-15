@@ -31,3 +31,4 @@ utils
 wavelink 
 praw
 importlib
+vedis
